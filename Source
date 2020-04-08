@@ -1,0 +1,23 @@
+--this is a single line comment;
+/* this is a multy line coment 
+isn't it  */
+Select * from customers;
+select distinct city from customers;
+select * from customers where city = 'London';
+select * from customers where city = 'London' and customerid like "%2";
+select * from customers where city = 'London' order by customerid desc;
+insert into customers (customername, city) values ("Dmitry", "Moscow");
+select * from customers where contactname is null;
+update Customers set Address = "Queens" where city = "Moscow";
+select * from customers where address = "Queens";
+Delete from customers where customerid= 93;
+select * from customers where customerid > 10;
+select * from customers order by customerid limit 10;
+select * from customers where city like "%co%";
+select * from orders, customers where orders.customerid = customers.customerid;
+select * from customers inner join orders on customers.customerid = orders.customerid;
+SELECT column_name(s)
+FROM table1
+INNER JOIN table2
+ON table1.column_name = table2.column_name;
+SELECT column_name(s) FROM table1 INNER JOIN table 2 ON table1.column_name = table2.column_name;
