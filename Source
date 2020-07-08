@@ -1,23 +1,287 @@
---this is a single line comment;
-/* this is a multy line coment 
-isn't it  */
-Select * from customers;
+SQL 
+-- comment field 11.02.2020 --
+SHOW DATABASES;
+
+SHOW TABLES;
+
+SHOW COLUMNS;
+
+SELECT * FROM table_name;
+
+SELECT * FROM table_name ORDER BY column_chosen;
+
+SELECT * FROM table_name WHERE column_chosen = 1 or column_chosen = 0;
+
+SELECT COUNT(*) FROM (SELECT DISTINCT Column_chosen FROM table_name); 
+-- this string counts all the unique values from the column;
+
+--live examples;
+SELECT * FROM Customers WHERE City IS NOT NULL;
+
+UPDATE Customers
+SET City = 'Stockholm'
+WHERE CustomerID = 1;
+
+--25.02.2020
+
+--28.02.2020
+SELECT * FROM Customers;
+
+Select Distinct Country from Customers;
+
+SELECT COUNT(*) FROM (SELECT DISTINCT Country FROM Customers);
+
+SELECT * FROM Customers WHERE Country IS NOT NULL;
+
+SELECT * FROM Customers WHERE Country IS NOT NULL AND Country = 'Mexico';
+
+SELECT * FROM Customers WHERE Country = 'Canada' OR Country = 'Mexico';
+
+SELECT * FROM Customers WHERE NOT (Country = 'Canada' OR Country = 'Mexico');
+
+SELECT * FROM Customers WHERE NOT (Country = 'Canada' OR Country = 'Mexico') ORDER BY Country ASC;
+
+SELECT * FROM Customers WHERE NOT (Country = 'Canada' OR Country = 'Mexico') ORDER BY Country DESC;
+
+INSERT INTO Customers(CustomerName, City) VALUES ('Dmitry', 'Moscow');
+
+UPDATE Customers
+SET Address = 'Karamyshevsky drive, 6', PostalCode = 14002
+WHERE CustomerID = 93;
+
+DELETE FROM Customers WHERE CustomerID = 92;
+
+-- the command below deletes all records
+DELETE FROM Customers; 
+
+Select * FROM (SELECT * FROM Customers Order by CustomerID ASC) LIMIT 10;
+
+-- or
+
+SELECT * FROM Customers Order by CustomerID ASC LIMIT 10;
+
+-- 03.03.2020
+
+select * from products where productname like '%s';
+
+select * from products where productname like '% %s';
+
+-- it will be MySQL Server syntax
+Select * FROM Products WHERE ProductName LIKE 'A%';
+
+-- it is MS Acess
+Select * FROM Products WHERE ProductName LIKE 'A*';
+
+-- it is MySQL
+Select * FROM Products WHERE ProductName LIKE '%a';
+
+-- it is MS Acess
+Select * FROM Products WHERE ProductName LIKE '*a';
+
+-- it will be SQL Server syntax
+Select * FROM Products WHERE ProductName LIKE '%a%';
+
+-- it is MS Acess
+Select * FROM Products WHERE ProductName LIKE '*a*';
+
+-- it will be SQL Server syntax
+Select * FROM Products WHERE ProductName LIKE '_r%';
+
+-- it will be MS Access syntax
+Select * FROM Products WHERE ProductName LIKE '?r*';
+
+--04.03.2020
+
+select * from customers where city like '%m';
+
+select * from customers where city like 'm%';
+
+select * from customers where city like '%nn%';
+
+select * from customers where city like '_o%';
+
+select * from customers where city like 'a_%_%';
+
+select * from customers where city like 'a%o';
+
+SELECT * FROM [Customers] where country like 'U%';
+
+INSERT INTO Customers(City) VALUES("Moscou"); 
+
+select * from customers where city like "Mosco_";
+
+
+--11.03.2020
+
+/* comment goes here */
+select count(*) as Amount from (Select distinct city from Customers);
+
+select * from customers where city like '%m';
+
+select * from customers where city like 'M%';
+
+select * from customers where city like '_t%m';
+
+select * from customers where country = 'Mexico' and city like 'M%';
+
+select * from customers where postalcode= '05033' order by ContactName;
+
+update customers set Address = "Call of Duty" where customerid = 1;
+
+delete from customers where Customerid = 1;
+
+/* SELECT TOP */
+Select * from customers order by CustomeriD desc limit 10;
+
+Select max(postalcode) from customers;
+
+select * from customers where country in ('Germany', 'Sweden', 'Mexico');
+
+select * from customers where country = 'Germany' OR country = 'Sweden' OR country ='Mexico';
+
+/* We stay on BETWEEN */
+
+select * from 
+
+--13.03.2020
+/* it's a new chapter */
+select * from customers where City in ("Madrid", "Elgin", "Leipzig");
+
+Select * from customers where customerid between 2 and 10;
+
+select Customername + address as [Full address] from customers;
+
+SELECT concat(CustomerName, address) as New from Customers;
+
+select * from products, shippers where products.supplierid = shippers.shipperid;
+
+select * from products inner join suppliers on products.supplierid = suppliers.supplierid;
+
+select * from products as pro inner join suppliers as sup on pro.supplierid = sup.supplierid;
+
+/* we stopped on JOINS >> repeat that */
+
+-- 18.04.2020
+/* here comes another day */
+
+--INNER JOIN
+Select * from orderDetails inner join orders on orderdetails.orderid = orders.orderid order by orderid asc;
+
+-- LEFT OUTER JOIN
+select * from customers left outer join orders on customers.customerid = orders.customerid order by customerid asc;
+
+-- RIGHT OUTER JOIN
+select * from shippers right outer join orders on shippers.shipperid = orders.shipperid order by shipperid asc;
+
+-- SELF JOIN
+SELECT A.CustomerName AS CustomerName1, B.CustomerName AS CustomerName2, A.City
+FROM Customers A, Customers B
+WHERE A.CustomerID <> B.CustomerID
+AND A.City = B.City;
+
+-- SELF JOIN Base sintax
+
+SELECT a.column_name, b.column_name...
+FROM table1 a, table1 b
+WHERE a.common_field = b.common_field;
+
+select e.employee as employee, b.employee as boss
+from emptable e JOIN emptable b
+ON e.manager_id = b.empolyee_id
+order by 1
+
+
+CREATE TABLE New(
+id int Unique,
+employeename varchar(30),
+managername varchar(30),
+employeeID int,
+managerid int,
+primary key(id)
+);
+
+insert into New values (1, 'Russel', 'Chuck', 11, 22);
+insert into New values (2, 'Bruce', 'Chuck', 12, 22);
+insert into New values (3, 'Anna', 'Chuck', 13, 22);
+insert into New values (4, 'Robby', 'Chuck', 14, 22);
+insert into New values (5, 'Paul', 'Hank', 31, 33);
+insert into New values (6, 'Ester', 'Hank', 32, 33);
+insert into New values (7, 'Nick', 'Hank', 34, 33);
+
+alter table new add upmanager;
+update new set upmanager = 'Garry' where managerid < 40;
+
+-- 22.05.2020
+
+select * from customers;
+select distinct(customer_name) from customers;
+select city, country where city like 'M%';
+select city from customers where city like '_oscow';
+select city from customers where address in not null and country like 'R%';
+select * from customers order by city desc;
+insert into customers(city, country, address) values ('Moscow', 'Russia', 'Karamyshevskaya nab');
+update customers set city = 'Moscow' where id = '10';
+update customers set country = 'Russia' where id = '10';
+delete from customers where city <> 'Moscow';
+delete from customers;
+truncate customers;
+select city, cost as price from customers order by price desc limit 10;
+select top 10 * from customers;
+
+
+--11.06.2020
+
+select * from customers;
 select distinct city from customers;
-select * from customers where city = 'London';
-select * from customers where city = 'London' and customerid like "%2";
-select * from customers where city = 'London' order by customerid desc;
-insert into customers (customername, city) values ("Dmitry", "Moscow");
-select * from customers where contactname is null;
-update Customers set Address = "Queens" where city = "Moscow";
-select * from customers where address = "Queens";
-Delete from customers where customerid= 93;
-select * from customers where customerid > 10;
-select * from customers order by customerid limit 10;
-select * from customers where city like "%co%";
-select * from orders, customers where orders.customerid = customers.customerid;
-select * from customers inner join orders on customers.customerid = orders.customerid;
-SELECT column_name(s)
-FROM table1
-INNER JOIN table2
-ON table1.column_name = table2.column_name;
-SELECT column_name(s) FROM table1 INNER JOIN table 2 ON table1.column_name = table2.column_name;
+select distinct city from customers where city like 'M%';
+select distinct city from customers where city like 'M______';
+ -- selects cities of 7 characters
+select distinct city from customers where city like 'M______';
+ -- selects cities starting with "M' or 'R'
+select distinct city from customers where city like 'M%' or city like 'R%';
+ -- selects cities having empty Address field
+select distinct city from customers where Address IS NULL;
+ -- re-arranging the table by customerid #
+select * from customers order by customerid;
+ -- adding a new row
+insert into customers(CustomerName, ContactName, City) values ('Nothing', 'Special', 'Lyubertsy');
+ -- changing value of a cell
+update customers set Address = 'Knowhere' where customerid = 55;
+ -- deleting a row
+delete from customers where customerid = 55;
+--deleting the whole table
+drop table new;
+--extracting values from table under condition
+select distinct city from customers where customerid>10;
+--returning the max value within a column
+select max(customerid) from customers;
+--extracting values from certain tuple
+select * from customers where city in ('Moscow','Lyubertsi', 'New York');
+--using aliasis
+select city as c, country as cc from customers;
+
+--17.06.2020
+
+--checking values between limits
+Select * from categories where categoryid between 1 and 5;
+
+--checking values which are present in tuple
+select * from categories where categoryid in (1, 2, 5);
+
+--taking overlapping values
+select city, country, contactname from products inner join suppliers on products.supplierid = suppliers.supplierid order by city desc;
+
+--joining two tables together (overlapping border)
+select * from products inner join suppliers on products.supplierid = suppliers.supplierid order by city desc;
+
+--checking the columns which can be met mainly in the left table
+select productid, quantity from orderdetails left outer join orders on orderdetails.orderid = orders.orderid;
+
+--adding records from one table to another
+
+--02.07.2020 
+SELECT City FROM Customers UNION SELECT City FROM Suppliers ORDER BY City;
+
+Select distinct city from customers UNION Select distinct city from suppliers order by city;
+
+--
