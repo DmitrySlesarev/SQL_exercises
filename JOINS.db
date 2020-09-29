@@ -1,0 +1,19 @@
+-- September 29th, 2020
+
+/* By the way, the INNER join might be performed using WHERE clause. The following two expressions are equal. */
+SELECT * FROM [OrderDetails], [Orders] WHERE OrderDetails.OrderID = Orders.OrderID;
+SELECT * FROM [OrderDetails] INNER JOIN [Orders] ON OrderDetails.OrderID = Orders.OrderID;
+SELECT * FROM [Orders] LEFT JOIN [Customers] ON Orders.CustomerID = Customers.CustomerID;
+SELECT O.OrderID, O.ShipperID, C.ContactName, C.City, C.Country FROM [Orders] AS O LEFT JOIN [Customers] AS C ON O.CustomerID = C.CustomerID ORDER BY ShipperID;
+/* Here is the skeleton of the LEFT JOIN expression. */
+SELECT Table1.Column1, ..., Table2.Column1, ... FROM [Table1] LEFT JOIN [Table2] ON Table1.ColumnX = Table2.ColumnX;
+SELECT * FROM [Orders] RIGHT JOIN [Employees] ON Orders.EmployeeID = Employees.EmployeeID ORDER BY OrderID;
+SELECT O.OrderID, O.OrderDate, E.FirstName, E.LastName, E.Notes FROM [Orders] AS O LEFT JOIN [Employees] AS E ON O.EmployeeID = E.EmployeeID ORDER BY OrderID;
+SELECT * FROM [Suppliers] FULL OUTER JOIN [Products] ON Suppliers.SupplierID = Products.ProductID ORDER BY City;
+SELECT * FROM [Suppliers] LEFT JOIN [Products] ON Suppliers.SupplierID = Products.ProductID ORDER BY Suppliers.City;
+/* SELF JOIN, the very rare animal at us. So, pay attention to it. */
+SELECT A.ProductID, A.ProductName FROM Products A, Products B WHERE A.Price > B.Price AND B.ProductID = 2;
+SELECT C.CustomerName, C.Country, C.City FROM Customers AS C
+UNION ALL
+SELECT S.SupplierName, S.Country, S.City FROM Suppliers AS S
+ORDER BY C.CustomerName;
