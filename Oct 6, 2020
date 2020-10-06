@@ -1,0 +1,27 @@
+-- This command doesn't work on some versions
+SELECT CONCAT(clmn1, ' ', clm2) FROM mytable;
+SELECT CategoryID, CategoryName FROM [Categories]
+UNION ALL
+SELECT CategoryID, ProductName FROM [Products];
+SELECT CategoryID, CategoryName FROM [Categories]
+UNION
+SELECT CategoryID, ProductName FROM [Products];
+SELECT City from [Customers]
+UNION
+Select City from [Suppliers]
+ORDER BY City ASC;
+SELECT City, Country FROM Customers WHERE Country="UK"
+UNION ALL
+SELECT City, Country FROM Suppliers WHERE Country="UK";
+SELECT City, Country FROM Customers WHERE Country="UK"
+UNION ALL
+SELECT City, Country FROM Suppliers WHERE Country="UK"
+ORDER BY City;
+SELECT 'Customer' AS Type, ContactName, City, Country
+FROM Customers
+UNION
+SELECT 'Supplier', ContactName, City, Country
+FROM Suppliers;
+SELECT 'Customer' AS Type, ContactName, City, Country FROM [Customers]
+UNION
+SELECT 'Supplier', ContactName, City, Country FROM [Suppliers];
