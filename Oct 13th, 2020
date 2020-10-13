@@ -1,0 +1,17 @@
+--October the 13th, 2020
+
+SELECT ContactName, Address, City, Country FROM [Customers]
+UNION
+SELECT ContactName, Address, City, Country FROM [Suppliers];
+/* Just a version of the previous request */
+SELECT ContactName, Address, City, Country FROM [Customers]
+UNION
+SELECT ContactName, Address, City, Country FROM [Suppliers];
+SELECT ContactName, Address, City, PostalCode FROM [Customers] WHERE Country = 'UK'
+UNION ALL
+SELECT ContactName, Address, City, PostalCode FROM [Suppliers] WHERE Country = 'UK';
+SELECT Count(City), Country FROM [Customers] GROUP BY Country;
+SELECT Country FROM [Customers] WHERE Country = "Argentina";
+SELECT Country FROM [Customers] WHERE Country = "Austria";
+SELECT Country FROM [Customers] WHERE Country = "Brazil";
+SELECT COUNT(ProductName), SupplierID FROM [Products] GROUP BY SupplierID ORDER BY COUNT(ProductName) DESC;
