@@ -1,0 +1,1 @@
+SELECT SupplierID, AVG(Price) FROM Products GROUP BY(SupplierID);
