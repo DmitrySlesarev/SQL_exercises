@@ -1,0 +1,7 @@
+SELECT * FROM Suppliers WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price < 20);
+
+SELECT * FROM Categories WHERE EXISTS (SELECT * FROM Customers WHERE Country='UK');
+
+SELECT SupplierName
+FROM Suppliers
+WHERE EXISTS (SELECT ProductName FROM Products WHERE Products.SupplierID = Suppliers.supplierID AND Price = 22);
