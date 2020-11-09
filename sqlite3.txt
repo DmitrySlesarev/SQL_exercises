@@ -1,0 +1,97 @@
+>>> import sqlite3
+>>> db = sqlite3.connect(":memory:mybase.db")
+>>> cur = db.cursor()
+>>> 
+>>> cur.execute("""CREATE TABLE alt(
+...             (_id INT PRIMARY KEY(), name VARCHAR(10),
+...             surname VARCHAR(10), description TEXT)
+...             """)
+
+>>> cur.execute("""CREATE TABLE alt(
+...             _id INT PRIMARY KEY(), name VARCHAR(10),
+...             surname VARCHAR(10), description TEXT)
+...             """)
+
+>>> cur.execute("""CREATE TABLE alt
+...             (_id INT, name VARCHAR(10),
+...             surname VARCHAR(10), description TEXT)
+...             """)
+<sqlite3.Cursor object at 0x103aa91f0>
+>>> cur.execute("""INSERT INTO alt VALUES
+...             (1, 'Dmitry', 'Slesarev', 'Test Engineer')
+...             """)
+<sqlite3.Cursor object at 0x103aa91f0>
+>>> database = [('2', 'Sergey', 'Sichov', 'Main Specialist'),
+...             ('3', 'Denis', 'Aravin', 'Police man'),
+...             ('4', 'Alexey', 'Fadeev', 'Business man')
+...             ]
+>>> cur.executemany("INSERT INTO alt VALUES (?, ?, ?, ?)", database)
+<sqlite3.Cursor object at 0x103aa91f0>
+>>> cur.commit()
+
+>>> db.commit()
+>>> sql = """
+... UPDATE alt
+... SET name = 'Dmitry', surname = 'Slesarev'
+... WHERE _id = '4'
+... """
+>>> cur.execute(sql)
+<sqlite3.Cursor object at 0x103aa91f0>
+>>> db.commit()
+>>> sql = "SELECT * FROM alt"
+>>> cur.execute(sql)
+<sqlite3.Cursor object at 0x103aa91f0>
+>>> cur.fetchall()
+[(1, 'Dmitry', 'Slesarev', 'Test Engineer'), (2, 'Sergey', 'Sichov', 'Main Specialist'), (3, 'Denis', 'Aravin', 'Police man'), (4, 'Dmitry', 'Slesarev', 'Business man')]
+>>> db.commit()
+>>> sql = "SELECT * FROM alt WHERE name = ?"
+>>> cur.execute(sql, [('Dmitry')])
+<sqlite3.Cursor object at 0x103aa91f0>
+>>> cur.fetchone()
+(1, 'Dmitry', 'Slesarev', 'Test Engineer')
+>>> cur.fetchone()
+(4, 'Dmitry', 'Slesarev', 'Business man')
+>>> cur.fetchone()
+>>> db.commit()
+>>> sql = "SELECT * FROM alt WHERE name = ?"
+>>> db.execute(sql, [("Denis")])
+<sqlite3.Cursor object at 0x103af30a0>
+>>> _list = cur.fetchall()
+>>> for _ in _list:
+...     print(_)
+... 
+>>> _list
+[]
+>>> sql
+'SELECT * FROM alt WHERE name = ?'
+>>> db.execute(sql, [('Dmitry')])
+<sqlite3.Cursor object at 0x103af30a0>
+>>> db.fetchall()
+
+>>> cur.fetchall()
+[]
+>>> cur.execute("SELECT * FROM alt")
+<sqlite3.Cursor object at 0x103aa91f0>
+>>> cur.fetchall()
+[(1, 'Dmitry', 'Slesarev', 'Test Engineer'), (2, 'Sergey', 'Sichov', 'Main Specialist'), (3, 'Denis', 'Aravin', 'Police man'), (4, 'Dmitry', 'Slesarev', 'Business man')]
+>>> cur.execute(sql, [('Sergey')])
+<sqlite3.Cursor object at 0x103aa91f0>
+>>> cur.fetchone()
+(2, 'Sergey', 'Sichov', 'Main Specialist')
+>>> # Also, there is some space for map function
+>>> db.commit()
+>>> # Creating the list
+>>> var = list(map(lambda x: 2*x**2 - 4*x + 2, list(range(1, 10)))
+... )
+>>> var
+[0, 2, 8, 18, 32, 50, 72, 98, 128]
+>>> num = list(filter(lamba x: x % 2 == 0, var))
+
+>>> num = list(filter(lambda x: x % 2 == 0, var))
+>>> num
+[0, 2, 8, 18, 32, 50, 72, 98, 128]
+>>> num = list(filter(lambda x: x % 3 == 0, var))
+>>> numb
+
+>>> num
+[0, 18, 72]
