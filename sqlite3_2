@@ -1,0 +1,147 @@
+>>> import random
+>>> _list = list(range(1, 10))
+>>> _list2 = [i for i in range(10) if i < 10]
+>>> _list = _list2
+>>> _list2 = [i for i in range(10) if i < 10]
+>>> _list == _list2
+True
+>>> random.shuffle(_list)
+>>> _list
+[0, 4, 6, 5, 1, 8, 2, 7, 3, 9]
+>>> _list = _list2
+>>> random.shuffle(_list2)
+>>> _list == _list2
+True
+>>> _list
+[1, 2, 4, 0, 3, 6, 9, 8, 5, 7]
+>>> _list2
+[1, 2, 4, 0, 3, 6, 9, 8, 5, 7]
+>>> random.shuffle(_list2)
+>>> _list2
+[5, 6, 7, 1, 9, 4, 0, 2, 8, 3]
+>>> _list == _list2
+True
+>>> _list
+[5, 6, 7, 1, 9, 4, 0, 2, 8, 3]
+>>> _list2
+[5, 6, 7, 1, 9, 4, 0, 2, 8, 3]
+>>> random.shuffle(_list)
+>>> _list
+[2, 3, 6, 9, 7, 4, 8, 0, 1, 5]
+>>> _list = _list2
+>>> random.shuffle(_list)
+>>> _list == _list2
+True
+>>> _list
+[5, 7, 9, 3, 4, 8, 1, 6, 2, 0]
+>>> _list2
+[5, 7, 9, 3, 4, 8, 1, 6, 2, 0]
+>>> random.shuffle(_list)
+>>> _list
+[1, 8, 0, 5, 6, 9, 2, 7, 4, 3]
+>>> _list2
+[1, 8, 0, 5, 6, 9, 2, 7, 4, 3]
+>>> random.shuffle(_list2)
+>>> _list == _list2
+True
+>>> _list
+[3, 9, 2, 7, 5, 8, 4, 6, 1, 0]
+>>> _list2
+[3, 9, 2, 7, 5, 8, 4, 6, 1, 0]
+>>> _list is _list2
+True
+>>> _list.sort()
+>>> _list2
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> _list2.sort()
+>>> _list2
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> var = []
+>>> for i in _list:
+...     var.append(str(i))
+... 
+>>> var
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> ' & '.join(var)
+'0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9'
+>>> import sqlite3
+>>> db = sqlite.connection(":memory:new.db")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'sqlite' is not defined
+>>> db = sqlite3.connection(":memory:new.db")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'sqlite3' has no attribute 'connection'
+>>> db = sqlite3.connect(":memory:new.db")
+>>> cur = db.cursor()
+>>> cur.execute("SELECT * FROM new")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.OperationalError: no such table: new
+>>> cur.execute("SHOW TABLES")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.OperationalError: near "SHOW": syntax error
+>>> cur.execute("""CREATE TABLE new
+...             (_id INT PRIMARY KEY, name VARCHAR(10),
+...             surname VARCHAR(10), description TEXT)
+...             """)
+<sqlite3.Cursor object at 0x10f4f6f80>
+>>> cur.execute("""INSERT INTO new VALUES
+...             (1, 'Dmitry', 'Slesarev', 'Businessman')
+...             """)
+<sqlite3.Cursor object at 0x10f4f6f80>
+>>> cur.execute("""INSERT INTO new VALUES
+...             (1, 'Alexey', 'Fadeev', 'Businessman')
+...             """)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.IntegrityError: UNIQUE constraint failed: new._id
+>>> cur.execute("""INSERT INTO new VALUES
+...             (2, 'Alexey', 'Fadeev', 'Businessman')
+...             """)
+<sqlite3.Cursor object at 0x10f4f6f80>
+>>> sql = "INSERT INTO new VALUES (?, ?, ?, ?)"
+>>> dbase = [(3, 'Sergey', 'Sichov', 'Worker'), (4, 'Denis', 'Aravin', 'Policeman'), (5, 'Alexandr', 'Fadeev', 'Policeman')]
+>>> dbase
+[(3, 'Sergey', 'Sichov', 'Worker'), (4, 'Denis', 'Aravin', 'Policeman'), (5, 'Alexandr', 'Fadeev', 'Policeman')]
+>>> dbase
+[(3, 'Sergey', 'Sichov', 'Worker'), (4, 'Denis', 'Aravin', 'Policeman'), (5, 'Alexandr', 'Fadeev', 'Policeman')]
+>>> cur.executemany(sql, dbase)
+<sqlite3.Cursor object at 0x10f4f6f80>
+>>> db.commit()
+>>> cur.execute("SELECT * FROM new")
+<sqlite3.Cursor object at 0x10f4f6f80>
+>>> var = cur.fetchall()
+>>> var
+[(1, 'Dmitry', 'Slesarev', 'Businessman'), (2, 'Alexey', 'Fadeev', 'Businessman'), (3, 'Sergey', 'Sichov', 'Worker'), (4, 'Denis', 'Aravin', 'Policeman'), (5, 'Alexandr', 'Fadeev', 'Policeman')]
+>>> sql
+'INSERT INTO new VALUES (?, ?, ?, ?)'
+>>> dbase
+[(3, 'Sergey', 'Sichov', 'Worker'), (4, 'Denis', 'Aravin', 'Policeman'), (5, 'Alexandr', 'Fadeev', 'Policeman')]
+>>> sql = 'INSERT INTO %s VALUES (?, ?, ?, ?)'
+>>> print(sql % 'new')
+INSERT INTO new VALUES (?, ?, ?, ?)
+>>> dbase
+[(3, 'Sergey', 'Sichov', 'Worker'), (4, 'Denis', 'Aravin', 'Policeman'), (5, 'Alexandr', 'Fadeev', 'Policeman')]
+>>> cur.execute("DELETE FROM new WHERE _id = 3 AND _id = 4 AND _id = 5")
+<sqlite3.Cursor object at 0x10f4f6f80>
+>>> cur.executemany(sql % 'new', dbase)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.IntegrityError: UNIQUE constraint failed: new._id
+>>> cur.execute("SELECT * FROM new")
+<sqlite3.Cursor object at 0x10f4f6f80>
+>>> a = cur.fetchall()
+>>> a
+[(1, 'Dmitry', 'Slesarev', 'Businessman'), (2, 'Alexey', 'Fadeev', 'Businessman'), (3, 'Sergey', 'Sichov', 'Worker'), (4, 'Denis', 'Aravin', 'Policeman'), (5, 'Alexandr', 'Fadeev', 'Policeman')]
+>>> dbase = [(6, 'Dmitry', 'Slesarev', 'Businessman'), (7, 'Alexey', 'Fadeev', 'Businessman'), (8, 'Sergey', 'Sichov', 'Worker'), (9, 'Denis', 'Aravin', 'Policeman'), (10, 'Alexandr', 'Fadeev', 'Policeman')]
+>>> cur.executemany(sql % 'new', dbase)
+<sqlite3.Cursor object at 0x10f4f6f80>
+>>> db.commit()
+>>> cur.execute("SELECT * FROM new")
+<sqlite3.Cursor object at 0x10f4f6f80>
+>>> b = cur.fetchall()
+>>> b
+[(1, 'Dmitry', 'Slesarev', 'Businessman'), (2, 'Alexey', 'Fadeev', 'Businessman'), (3, 'Sergey', 'Sichov', 'Worker'), (4, 'Denis', 'Aravin', 'Policeman'), (5, 'Alexandr', 'Fadeev', 'Policeman'), (6, 'Dmitry', 'Slesarev', 'Businessman'), (7, 'Alexey', 'Fadeev', 'Businessman'), (8, 'Sergey', 'Sichov', 'Worker'), (9, 'Denis', 'Aravin', 'Policeman'), (10, 'Alexandr', 'Fadeev', 'Policeman')]
