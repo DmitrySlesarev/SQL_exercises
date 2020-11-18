@@ -1,0 +1,7 @@
+SELECT * FROM [OrderDetails] AS OD WHERE EXISTS (SELECT * FROM [Orders] AS O WHERE OD.OrderID = O.OrderID AND O.OrderID = 10248);
+
+SELECT * FROM Customers AS C WHERE EXISTS (SELECT 1 FROM Suppliers AS S WHERE C.City = S.City);
+
+SELECT * FROM Customers AS C WHERE NOT EXISTS (SELECT 1 FROM Suppliers AS S WHERE C.City = S.City);
+
+SELECT * FROM [Customers] WHERE EXISTS(SELECT 1 FROM Suppliers WHERE Customers.City = Suppliers.City );
