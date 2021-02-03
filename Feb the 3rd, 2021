@@ -1,0 +1,63 @@
+-- Feb the 3rd, 2021
+INSERT INTO table1 
+SELECT clm1, clm2 ...
+FROM table2
+WHERE condition;
+
+INSERT INTO table1 SELECT clm1, clm2 FROM table2 WHERE condition;
+
+INSERT INTO Suppliers (SupplierID, City, Country) 
+SELECT CustomerID, City, Country FROM Customers;
+
+INSERT INTO Customers (CustomerName, City, Country)
+SELECT SupplierName, City, Country FROM Suppliers;
+
+INSERT INTO Suppliers (SupplierName, City, Country) 
+SELECT CustomerName, City, Country FROM Customers;
+
+--template
+CASE
+	WHEN condition1 THEN action1
+	WHEN condition2 THEN action2
+	WHEN condition3 THEN action3
+	ELSE action4
+END;
+
+SELECT City, Country,
+	CASE
+		WHEN PostalCode < 1000 THEN 'Too low'
+		WHEN PostalCode > 2000 THEN 'High enough'
+		ELSE 'Something strange'
+	END AS ExplanatinoMark
+FROM Customers;	
+
+SELECT OrderID, EmployeeID, OrderDate,
+	CASE
+		WHEN EmployeeID < 5 THEN 'Too low'
+		WHEN EmployeeID > 8 THEN 'Too high'
+        ELSE 'Nothing'
+	END AS Comments
+FROM Orders;
+
+SELECT ProductName, Unit,
+	CASE
+    	WHEN Price < 30 THEN 'OK'
+        WHEN Price > 30 THEN 'NOK'
+        ELSE 'Equal'
+    END AS Comment
+FROM Products;
+
+SELECT ProductName, Unit, Price,
+	CASE
+    	WHEN Price < 30 THEN 'OK'
+        WHEN Price > 30 THEN 'NOK'
+        ELSE 'Equal'
+    END AS Comment
+FROM Products;
+
+/* Be careful with ',' after column names:
+it should be there. Otherwise the expression
+won't work. Good luck! */
+
+
+        
