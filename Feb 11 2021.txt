@@ -1,0 +1,164 @@
+Last login: Thu Feb 11 20:58:03 on ttys000
+MacBook-Air-Dmitrij:~ dmitrijslesarev$ pwd
+/Users/dmitrijslesarev
+MacBook-Air-Dmitrij:~ dmitrijslesarev$ ls
+#newfile#			iCloud Drive (архив)
+:memory:mybase.db		iCloud Drive (архив) - 1
+:memory:new.db			iCloud Drive (архив) - 2
+Applications			iCloud Drive (архив) - 3
+Chinook_Sqlite.sqlite		mydatabase.db
+Desktop				mydatabase.db-journal
+Documents			new.cite
+Downloads			new.db
+Library				new.site
+Movies				new.txt
+Music				new2.db
+PhpstormProjects		site.sqlite
+Pictures			sqlite.site
+Public				sqlite.sql
+WebstormProjects		test_sum.py
+MacBook-Air-Dmitrij:~ dmitrijslesarev$ cd Documents
+MacBook-Air-Dmitrij:Documents dmitrijslesarev$ ls
+Android
+Business
+CSS
+Cassandra
+Coursera Quiz week#2
+Dictionary.pages
+Facebook
+HTML.5
+IMG_3439.JPG
+IMG_3450.jpg
+IMS
+OMV Markets
+PHP
+Photos
+Physics
+Python
+SQL
+Slesarev Dmitry.pdf
+Stepik_Selenium
+Terminal
+Wireshark
+Школа см выпуск 1
+Реквизиты Tinkoff.pdf
+Документы — MacBook Air — Дмитрий
+Объяснение команды Linux source.pages
+Системный программист - ВШЭ.pages
+Системный программист - статья с habr.pages
+MacBook-Air-Dmitrij:Documents dmitrijslesarev$ cd SQL
+MacBook-Air-Dmitrij:SQL dmitrijslesarev$ ls
+Chinook_Sqlite.sqlite
+DB Browser for SQL Lite.pages
+Dec 23, 2020
+Feb the 3rd, 2021
+Index.pages
+Index2
+Nov 11, 2020
+Nov 18, 2020
+Oct 13th, 2020
+Oct 23, 2020
+Oct 28, 2020
+Oct 6, 2020
+Python- Работа с базой данных, часть 1:2- Используем DB-API.pages
+SELECT & EXISTS - качественный manual.pages
+Sep 23, 2020
+sqlite3.txt
+sqlite3_2
+Как работает EXISTS.pages
+Руководство по SQL. SELF JOIN..pages
+MacBook-Air-Dmitrij:SQL dmitrijslesarev$ clear screen
+
+MacBook-Air-Dmitrij:SQL dmitrijslesarev$ python3
+Python 3.9.1 (default, Dec 20 2020, 15:43:43) 
+[Clang 10.0.0 (clang-1000.10.44.4)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import sqlite3
+>>> conn = sqlite3.connect('Chinook_Sqlite.sqlite')
+>>> cur = conn.cursor()
+>>> conn.close()
+>>> import psycopg2
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'psycopg2'
+>>> import mysql.connector
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'mysql'
+>>> import yodbc
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'yodbc'
+>>> conn = sqlite3.connect('Chinook_Sqlite.sqlite')
+>>> cur = conn.cursor()
+>>> cur.execute("SELECT Name FROM Artist ORDER BY Name LIMIT 3")
+<sqlite3.Cursor object at 0x10e35e2d0>
+>>> results = cur.fetchall()
+>>> results2 = cur.fetchall()
+>>> print(results)
+[('A Cor Do Som',), ('AC/DC',), ('Aaron Copland & London Symphony Orchestra',)]
+>>> print(results2)
+[]
+>>> cursor.execute("INSERT INTO Artist VALUES (NULL, 'A Aargh!')")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'cursor' is not defined
+>>> cur.execute("INSERT INTO Artist VALUES (NULL, 'A Aargh!')")
+<sqlite3.Cursor object at 0x10e35e2d0>
+>>> conn.commit()
+>>> cur.execute("SELECT Name FROM Artist ORDER BY NAME LIMIT3")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.OperationalError: near "LIMIT3": syntax error
+>>> result = cur.fetchall()
+>>> print(result)
+[]
+>>> cur.execute("SELECT Name FROM Artist ORDER BY NAME LIMIT 3")
+<sqlite3.Cursor object at 0x10e35e2d0>
+>>> result = cur.fetchall()
+>>> print(result)
+[('A Aargh!',), ('A Cor Do Som',), ('AC/DC',)]
+>>> cur.execute("""
+... SELECT name
+... FROM Artist
+... ORDER BY Name
+... LIMIT 3
+... """)
+<sqlite3.Cursor object at 0x10e35e2d0>
+>>> result = cur.fetchall()
+>>> print(result)
+[('A Aargh!',), ('A Cor Do Som',), ('AC/DC',)]
+>>> cur.executescript("""
+... INSERT INOT Artist VALUES (NULL, 'Aargh1');
+... INSERT INO
+... """)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.OperationalError: near "INOT": syntax error
+>>> cur.executescript("""
+... INSERT INTO Artist VALUES (NULL, 'Aargh1');
+... INSERT INTO Artist VALUES (NULL, 'Aargh2');
+... """)
+<sqlite3.Cursor object at 0x10e35e2d0>
+>>> cur.execute("SELECT Name FROM Artist ORDER BY NAME LIMIT 3")
+<sqlite3.Cursor object at 0x10e35e2d0>
+>>> result = cur.fetchall()
+>>> print(result)
+[('A Aargh!',), ('A Cor Do Som',), ('AC/DC',)]
+>>> cur.executescript("""
+... INSERT INTO Artist VALUES (NULL, 'Aargh1');
+... INSERT INTO Artist VALUES (NULL, 'Aargh2');
+... """)
+<sqlite3.Cursor object at 0x10e35e2d0>
+>>> conn.commit()
+>>> cur.execute("SELECT Name FROM Artist ORDER BY NAME LIMIT3")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.OperationalError: near "LIMIT3": syntax error
+>>> cur.execute("SELECT Name FROM Artist ORDER BY NAME LIMIT 3")
+<sqlite3.Cursor object at 0x10e35e2d0>
+>>> result = cur.fetchall()
+>>> print(result)
+[('A Aargh!',), ('A Cor Do Som',), ('AC/DC',)]
+>>> 
+
